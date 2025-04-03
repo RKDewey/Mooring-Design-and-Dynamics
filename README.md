@@ -1,0 +1,1 @@
+The Mooring Design and Dynamics Matlab package is software to help design and test single wire oceanographic moorings and towed bodies. There are several associated webpages that descibe the software, a download link page, and a comprehensive Users Guide.
