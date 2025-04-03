@@ -1,0 +1,128 @@
+<HTML> <HEAD> <title>Mooring Design and Dynamics: Files</title> </HEAD>
+
+<BODY BACKGROUND="texture.bmp" TEXT="#000000" LINK="#0000FF" VLINK="#6600AA" ALINK="#FF0000"
+BGCOLOR="#FFFFFF"  > <font face="Times Roman" size="+1">
+
+<center><font size="+3"><b><font color="red">M</font>ooring <font color="red">D</font>esign
+&#38 <font color="red">D</font>ynamics Files</font><br> <font size=+1>A <a
+href="http://www.mathworks.com">Matlab&#174</a> Package for Designing and Analyzing Oceanographic
+Moorings<br>
+<br><b>Richard K. Dewey</b><br>
+University of Victoria, BC, Canada <br>
+<A HREF="mailto:rkdewey@gmail.com">rkdewey@gmail.com</A> </b></font></center> <br>
+
+<p><center>Return to the <a href="mdd/mdd.html">Users Guide</a></center></p>
+
+<hr>
+<p align="justify">
+<img src="mdd.gif" width="100" height="290" hspace=10 align="left">
+<img src="tow.gif" width="233" height="293" hspace=10 align="right">
+<a href="moordyn.html">Mooring Design and Dynamics</a> is a set of
+Matlab&#174 routines that
+can be used to assist in the design and configuration of single point oceanographic moorings, the
+evaluation of mooring tension and shape under the influence of wind and currents, and the simulation
+of mooring component positions when forced by time dependant currents. Version 2.0 (June 9, 2000) also includes
+the capability of predicting the shape (depth, wire length,...) associated with towed bodies. Version 2.1 included
+"clamp-on" components that attached to the mooring wire/line. The <i>static</i>
+model will predict the tension and tilt at each mooring component, including the anchor, for which the safe mass
+will be evaluated in terms of the vertical and horizontal tensions. Predictions can be saved to
+facilitate mooring motion correction. Time dependant currents can be entered to predict the
+<i>dynamic</i> response of the mooring. For a towed body, the user can specify a fixed wire length and predict
+the depth given a current profile and ship velocity, or request a desired depth, and have MD&D predict the
+required wire length. The package includes a preliminary database of standard
+mooring components which can be selected from pull down menus. Databases can be edited and
+expanded to include user specific components, frequently used fasteners/wires etc., or unique
+oceanographic instruments. Once designed and tested, a draft of the mooring components can be plotted
+and a list of components, including fasteners can be printed.
+</p>
+<p>Version 2.2 includes a completely re-done formulation of the form and lift drag calculations. The older versions are nearly correct,
+but were not invariant to a rotation of the currents. Ugh! The re-formulated code (v2.2) is cleaner and more accurately represents
+the lift force terms described in section 3-11 of Hoerner (1965), and is invariant to the direction of the currents!
+The new formulation was updated in both moordyn.m and towdyn.m for both moorings and towed bodies.
+Solutions/values are very slightly different than the older (published) values.
+Version 2.3 (November 2016) fixed a small but critical bug for towed cylinders, fixing the angle of the bottom (towed) device,
+and version 2.4 (November 2021) fixed a tiny bug in the plot mooring routine.
+Version (2.1.2) included a user contributed improved convergence algorithm to help sheared current simulations.</p>
+
+<p>Version 2.5 had bugs, and should be updated to version 2.6.
+Version 2.5 included a slight, but signifiant adjustment to include the weight of the surface float in a surface mooring.
+Version 2.6 fixes a bug in this (v2.5) adjustment.
+Originally (prior to version 2.5), the code would assess if the top float was requied to lift any of the submerged elements, and even remove the top float if it was not required.
+But the top float has weight, and will have between 10-30% of it's volume submerged to keep itself afloat. So even if the top
+float is not needed to keep the submerged part of the mooring "up", it will have drag on the submerged portion of the float, the portion of
+buoyancy used to float itself. The weight of the float and the % of buoyancy needed to keep itself afloat is now encoded.
+Top floatation will no longer be removed. Smaller floats may use up to 30% of their
+buoyany to float their our weight, while larger floats many use as little as 10%. For most oceanographic "moorings",
+the percentage is between 15-20% submerged buoyancy to lift the weight of the float.
+Old saved moorings (without the float weight) will use a default of 15%, while new (user added) floats will need to be entered
+into the database with the new quanity of their in-air weight.</p>
+
+<p>Version 2.6 (February 2024) fixes a bug in V2.5 that produced errors for surface float moorings. I have simplified the method of
+calculating the drag on the submerged portion of the (top) float, while keeping the convergent portion of the code that estimates
+the amount of floation required to lift the remainder of the mooring. It is still a new feature to enter the in air weight of all floats in the database, as the percentage of buoyancy required to float the float is the floats weight divided by the floats buoyancy (10-30%).
+Checking v2.6 solutions against all the included and original examples; differences are minimal for most surface floats using a reasonable amount to buoyancy. For light moorings, the fix was essential. The fix does not affect fully submerged mooring solutions.</p>
+
+<p>Version 2.7 (November 2024) fixes a significant bug for towed body systems (only). Using formulas from Horner,
+I include a lift term (vertical force) on tilted cylinders, including all wire/rope/line elements
+of a towed body system. This lift force is in addition to the lateral force on the exposed surface area
+to a flow (including the ship's velocity).</p>
+
+<p>Many people have worked on this code since I released it in 1998. Some have found bugs, others made improvements/enhancements, and
+many have added their own mooring devices to their private moornig database.
+I would like to hear from all users who find bugs, or the value of this program and/or any improvements you can
+think of/contribute. However, I have long sinced moved on to other research projects, and have just retired from UVic and running an ocean observatory
+(i.e. <a href="http://oceannetworks.ca/">Ocean Networks Canada</a>). I have had little time to implement the many suggestions made with respect to MD&D. Although I may try to respond to emails, help get the code
+working (corrected), even test certain/your mooring configurations, this software is provided "as is" (<b>free</b>), without any suggestion of support.
+Most issues are covered in the Uses Guide.
+The most common issue is people do not put essential "connectors" (i.e. a shackle) between mooring components (the float and chain). Not only are connectors needed in a real mooring, they are essential in MD&D as my code uses them to (naturally) segment the mooring into "segments".
+</p><br clear="left"> <hr>
+
+<h3>The Files: Latest Version 2.7, November 2024</h3>
+
+<a href="https://github.com/RKDewey/Mooring-Design-and-Dynamics">The Github MD&D Files</a><br>
+The complete zipped program file includes the Matlab routines and example moorings and mooring movies.<br>
+
+<li><a href="https://github.com/RKDewey/Mooring-Design-and-Dynamics/blob/main/mooring27.zip">mooring27.zip</a>
+(the main Matlab code and saved mooring files)</li>
+
+<li><a href="https://github.com/RKDewey/Mooring-Design-and-Dynamics/blob/main/mddugdoc.zip">Mooring Design and Dynamics Users Guide HTML Files</a>
+(the HTML files for a local copy of the online <a href="mdd/mdd.html">Users Guide</a> (v2.7))</li>
+
+<li><a href="https://github.com/RKDewey/Mooring-Design-and-Dynamics/blob/main/Mooring%20Design%20and%20Dynamics%20Users%20Guide%202.7.pdf">Mooring Design and Dynamics Users Guide 2.7.pdf</a>
+(the PDF (printable but not hypertext) version of the online <a href="mdd/mdd.html">Users Guide</a> (v2.7). 1 MB)</li>
+
+<li><a href="https://github.com/RKDewey/Mooring-Design-and-Dynamics/blob/main/Dewey-MDD-1999.pdf">Dewey-MDD-1999.pdf</a>
+(the PDF (printable) the published paper in Marine Models Online (Volume 1) introducing MD&D. 2.8MB)</li>
+</b></font>
+
+<hr>
+<h3>Installation</h3>
+<p align="justify">
+There is now only one achive file associated with MD&D: a <b>ZIP</b> file containing the latest (version 2.7)
+programs, subrroutines, and example mooring files.
+The program files are entirely archived in the latest version <b>mooring##.zip</b>.
+While you can also download the HTML Users Guide (mddusdoc.zip), it may be easier to just access/save as a Bookmark
+the <a href="mdd/mdd.html"><font size="+1">Users Guide</a></font> via the this github web link.
+
+The software archive should be expanded into a subdirectory under your Matlab program directory,
+where you might store your private tool boxes (e.g. ../toolboxes/). <br>
+The program files should be expracted into something like: /matlab/toolbox/local/mooring27/*.* <br>
+Then this path needs to be <b>added and saved</b> to your Matlab path using the add/path functions from the menus
+available from the top of the Matlab command window.<br> <b>MD&D</b> can be started by typing <b>"moordesign"</b> at the MATLAB
+command prompt.</p>
+
+<p align="justify">
+The <a href="mdd/mdd.html"><font size="+1">Users Guide</a></font> HTML files (available seperately in mddugdoc.zip)
+can also be downloaded and extracted into a Matlab program subdirectory: /matlab/help/local/mdd/*.*<br>
+The Users Guide may then be accessible from within Matlab by typing "mdd". Or alternately loading the .../mdd/mdd.html file is a web browser.
+</p>
+
+<p align="justify">To start MD&D, type "moordesign" at the Matlab command prompt (e.g. >>moordesign)</p>
+
+Return to <a href="moordyn.html">Mooring Design and Dynamics</a> Home Page.<br>
+Or go to the online <a href="mdd/mdd.html">Users Guide</a> Page.<br>
+
+<hr>
+<p><center>
+<i>Webpage last modified March 31, 2025.<br> Questions and comments are welcome, EMail: <a href="mailto:rkdewey@gmail.com">Richard Dewey</a> </i>
+</center></p>
