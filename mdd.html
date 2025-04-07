@@ -1921,8 +1921,8 @@ a solution is then requested, we find that the second set of floats is now on th
 upper most floatation and wire will hang downstream of this second set of floats and provide
 virtually no vertical tension on the mooring, only horizontal drag.
 This type of solution can be extremely tricky to get to converge. The program will attempt to converge,
-but if it fails to converge after many hundreds of itterations, try increasing the surface curretns slightly
-to force some (minimal) tension in the upper portion of the mooring.
+but if it fails to converge after many hundreds of iterations, try increasing the surface currents slightly
+(0.1 m/s) to force some (minimal) tension in the upper portion of the mooring.
 A "feature" (surface to sub-surface mooring) can be tested by
 taking the original MOOR002.MAT mooring and increasing the upper most (surface) current speed. If one
 sets U(1) to 1.5 m/s at z(1)=130 (using <a href="#p1.5">Set/Load Environmental Conditions</a>), then
