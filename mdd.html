@@ -867,7 +867,7 @@ the tensions at and positions of all major mooring components and at the ends of
 can be displayed by <i>clicking</i> the <a href="#p1.8">Display Mooring Elements</a> button from the
 <a href="#mm">Main Menu</a>.</p>
 
-<a name="modplt"><img src="modplt01.gif" title="Modifyor Set Plot
+<a name="modplt"><img src="modplt01.gif" title="Modify or Set Plot
 Characteristics" vspace="0" hspace="10" align="left" BORDER="0" width="302" height="287"></a> <img src="pltmoor01.gif"
 title="3D Plot of Mooring Solution" vspace="0" hspace="10" align="right" BORDER="0" width="309" height="460"><br clear="left">
 <p align="justify"> After the solution has been found, the three-dimensional mooring shape is
@@ -914,8 +914,9 @@ the current speeds are reduced), especially for S-mooring configurations, then t
 <p>
 In version 2.5 I have modified the code in an important way, for surface floating moorings. Previously (v2.4)
 if the top float was not needed to lift any submerged elements, then the top floatation segments were removed.
-This, however, is not realistic. Surface floats must support themselves, and even if there is no tension from below,
-the surface float must be alound to just float on the surface, supporting its own weight. Floats typically take between
+This, however, is not realistic. Surface floats must support themselves (therefor be partially submerged),
+and even if there is no/little tension from below,
+the surface float must be allowed to just float on the surface, supporting (buoyed) its own weight. Floats typically take between
 10 - 30% of their buoyancy just to float themselves, with smaller floats taking more buoyancy (30%) and larger floats taking
 less (10-15%). However, this still is tricky for the code to solve, as a surface float may not need to "lift" the submerged mooring,
 but the surface float will contribute (important) lateral drag.
@@ -1554,12 +1555,9 @@ positions of the mooring components relative to the anchor, iobjts(m,j) are the 
 anchor, and misc, excluding fasteners, wire/chain, etc.), psits(i,j) are the <IMG SRC="psi.gif"
 WIDTH="14" HEIGHT="14" BORDER="0" ALT="psi.gif - 146 Bytes"> angles from vertical for each mooring
 segment, and ts(j) are the times. Note that typically iobjts(i,1)=iobjts(i,2)=iobjts(i,3)=..., since
-for most time dependent moorings the component position in the mooring is constant. However, it is
-possible that during a time dependent solution, an ill-posed surface solution arises, at which time
-the top part of the mooring may be removed, changing the location of the remaining devices. This is
-rare, and should not be an issue for most users. If a current meter is the third device on a mooring,
-then the time series of the first 100 vertical positions of the current meter can be plotted by
-typing:
+for most time dependent moorings the component position in the mooring is constant.
+If a current meter is the third device on a mooring, then the time series of the first 100
+vertical positions of the current meter can be plotted by typing:
 <pre>
 &#62&#62 global ts Xts Yts Zts psits iobjts		% to get these core variables into your workspace
 &#62&#62 plot(ts(1:100),Zts(iobjts(3,1),1:100));	% to plot the vertical positions for the first 100 times
@@ -1921,13 +1919,11 @@ demonstrated with the mooring stored in MOOR002.MAT. First, if the  current prof
 such that the depth of the water [height of the first current estimate z(1)] is reduced to 95 m, and
 a solution is then requested, we find that the second set of floats is now on the surface, and the
 upper most floatation and wire will hang downstream of this second set of floats and provide
-no vertical tension, only horizontal drag. This type of solution is extremely tricky to get to
-converge, and so the upper portions of the mooring (above the second set of floats), where there are
-no instruments, is "removed" in order to find a solution. A message stating that several components
-of the mooring have been removed is displayed in the command window, and the remaining portion of the
-mooring is then used to find a solution. This limitation means that an "S-shaped" mooring where the
-second set of floatation device(s) can fully support the mooring as a surface solution can <b>NOT</b>
-be evaluated (with out removing the "S" portion of the string). Another "feature" can be tested by
+virtually no vertical tension on the mooring, only horizontal drag.
+This type of solution can be extremely tricky to get to converge. The program will attempt to converge,
+but if it fails to converge after many hundreds of itterations, try increasing the surface curretns slightly
+to force some (minimal) tension in the upper portion of the mooring.
+A "feature" (surface to sub-surface mooring) can be tested by
 taking the original MOOR002.MAT mooring and increasing the upper most (surface) current speed. If one
 sets U(1) to 1.5 m/s at z(1)=130 (using <a href="#p1.5">Set/Load Environmental Conditions</a>), then
 while the solution is sought, the model will find that 100% of the upper most float is required to
@@ -1935,7 +1931,7 @@ support the mooring, and the solution becomes a sub-surface solution. Note for t
 the large double railway wheel anchor is only just sufficient. When such a mooring is forced by time
 varying currents (i.e. MOOR002TS.mat), one can determine when a surface mooring will become a
 sub-surface mooring. This is particularly important as the original anchor mass maybe sufficient for
-a surface solution, but inadequate for a sub-surface solution.</p>
+a surface solution, but inadequate for a sub-surface solution, when lift and tension forces may be much higher.</p>
 <center><b>Solution for MOOR002.MAT</b><br>
 <IMG SRC="moor002soltxt.gif" WIDTH="593" HEIGHT="436" ALIGN="middle" ALT="Moor002.mat Solution
 (text)">
