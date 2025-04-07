@@ -19,12 +19,19 @@ vlink="#BF00BF" alink="#0077FF">
 benefit of designing oceanographic moorings using the Mooring Design and Dynamics
 package for MATLAB. The information is provided to assist in determining the size,
 weight, and strength characteristics of various steel chains, shackles and joiners.
-The conversion from lb. (pounds) to kg is 1 kg = 2.2046 lb,
-and steel retains approximately 87%
-of it's weight (buoyancy) in seawater. Therefore a 20 lb length of chain weighs
+I originally build MD&D in 1999, in the relatively early days of the Internet. There are
+now many sites with chain and mooring component specifications on the Web. Also, metric dimensions
+are now routinely listed either next to or replacing emperical dimensions. I strongly recommend that
+"rated' gear be used in all oceanographic moorings, such as "Crosby" (www.thecrosbygroup.com). I do not endorse any
+manufacturer nor hold any liability for mooring loss or harm due to broken gear. When in doubt, reported working
+loads should be more than twice the maximum loads you anticipate lifting.</p>
+
+<p>The conversion from lb. (pounds) to kg is 1 kg = 2.2046 lb, and steel retains approximately 87%
+of it's weight (negative buoyancy) in seawater. Therefore a 20 lb length of chain weighs
 20/2.2046=9.072 kg in air, and 9.072*0.87=7.91 kg in seawater. Since it is heavier than
-seawater, we would assign it a negative buoyancy of -7.91 kg. But note all wire, chain, rope etc.
-are all specified in MD&D by the weight per (unit) metre [kg/m].</p>
+seawater, we would assign it a negative buoyancy of -7.91 kg. But also note all
+length components, such as wire, chain, rope etc.
+are all specified in MD&D by the weight per (unit) metre [kg/m]. Connectors (e.g. shackles) are unit weight. </p>
 
 <p>Mooring Design and Dynamics wants mass/lengths of chain and wire to be entered as the
 buoyancy per unit meter of length. For example, in the table for buoy chain, the
